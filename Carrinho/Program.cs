@@ -58,7 +58,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowAll", policy =>
     {
         policy
-            .WithOrigins("http://localhost:5173", "http://localhost:3000")
+            .WithOrigins("http://localhost:5173", "http://localhost:3000", "https://poisonous-gravestone-qxgrjvwv4vxhxg6r-5173.app.github.dev")
             .AllowAnyMethod()
             .AllowAnyHeader()
             .AllowCredentials();
