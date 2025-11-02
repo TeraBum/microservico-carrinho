@@ -52,6 +52,18 @@ builder.Services.AddHttpClient("OrderService", httpClient =>
 });
 builder.Services.AddScoped<CartService>();
 
+// ✅ Add CORS policy that allows everything (*)
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy
+            .AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader();
+    });
+});
+
 builder.Services.AddAuthorizationBuilder()
     .AddPolicy("user_email", policy =>
         policy

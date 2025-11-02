@@ -106,13 +106,14 @@ public class CartService
         
         var json = JsonSerializer.Serialize(payload);
         var content = new StringContent(json, Encoding.UTF8, "application/json");
-        var response = await client.PostAsync("/orders", content);
+        /*
+        //var response = await client.PostAsync("/orders", content);
         if (!response.IsSuccessStatusCode)
         {
-            var errorBody = await response.Content.ReadAsStringAsync();
-            throw new Exception(errorBody);
-            throw new InvalidOperationException("It was not possible to create a new order.");
+            //var errorBody = await response.Content.ReadAsStringAsync();
+            //throw new InvalidOperationException("It was not possible to create a new order.");
         }
+        */
         oldCart.Status = "Finished";
         await _cartDb.SaveChangesAsync();
         return oldCart;
