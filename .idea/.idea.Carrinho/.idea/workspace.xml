@@ -11,7 +11,6 @@
     <list default="true" id="9adab003-12a0-4dfa-96ee-5fdbc90bc31c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Carrinho/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Carrinho/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Carrinho/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Carrinho/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Carrinho/Services/CartService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Carrinho/Services/CartService.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -110,7 +109,8 @@
       <workItem from="1759685099006" duration="9685000" />
       <workItem from="1760138867513" duration="3881000" />
       <workItem from="1761687412440" duration="935000" />
-      <workItem from="1762101677823" duration="50000" />
+      <workItem from="1762101677823" duration="415000" />
+      <workItem from="1762104055832" duration="4665000" />
     </task>
     <servers />
   </component>

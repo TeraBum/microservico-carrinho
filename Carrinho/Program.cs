@@ -58,16 +58,18 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowAll", policy =>
     {
         policy
-            .AllowAnyOrigin()
+            .WithOrigins("http://localhost:5173", "http://localhost:3000")
             .AllowAnyMethod()
-            .AllowAnyHeader();
+            .AllowAnyHeader()
+            .AllowCredentials();
     });
 });
 
 builder.Services.AddAuthorizationBuilder()
     .AddPolicy("user_email", policy =>
         policy
-            .RequireClaim("Email"));
+            .RequireClaim("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"));
+            //.RequireClaim("Email"));
 
 builder.Services.AddOpenApi(options =>
 {
@@ -105,6 +107,7 @@ builder.Services.AddOpenApi(options =>
 
 var app = builder.Build();
 
+app.UseCors("AllowAll");
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -116,7 +119,6 @@ if (app.Environment.IsDevelopment())
     });
 }
 
-app.UseHttpsRedirection();
 
 var apiVersionOneMapping = app.MapGroup("/api/v1");
 var cartMapping = apiVersionOneMapping.MapGroup("/cart");
@@ -129,7 +131,7 @@ cartMapping.MapPost("/checkout", CheckOutCart).RequireAuthorization("user_email"
 
 static async Task<IResult> GetCart(HttpContext context, CartService cartService)
 {
-    var email = context.User.FindFirst("Email")?.Value;
+    var email = context.User.FindFirst("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name")?.Value;
     if (string.IsNullOrEmpty(email))
         return TypedResults.Unauthorized();
     try
@@ -151,7 +153,7 @@ static async Task<IResult> GetCart(HttpContext context, CartService cartService)
 //Two exceptions might happen inside which might be handled by a middleware
 static async Task<IResult> CreateCart(HttpContext context, CartDto cartDto, CartService cartService)
 {
-    var email = context.User.FindFirst("Email")?.Value;
+    var email = context.User.FindFirst("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name")?.Value;
     if (string.IsNullOrEmpty(email))
         return TypedResults.Unauthorized();
     try
@@ -173,7 +175,7 @@ static async Task<IResult> CreateCart(HttpContext context, CartDto cartDto, Cart
 //TODO create exceptions for user not found or cart not found
 static async Task<IResult> AddToCart(HttpContext context, CartItemDto[] cartItems, CartService cartService)
 {
-    var email = context.User.FindFirst("Email")?.Value;
+    var email = context.User.FindFirst("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name")?.Value;
     if (string.IsNullOrEmpty(email))
         return TypedResults.Unauthorized();
     try
@@ -192,7 +194,7 @@ static async Task<IResult> AddToCart(HttpContext context, CartItemDto[] cartItem
 
 static async Task<IResult> CancelCart(HttpContext context, CartService cartService)
 {
-    var email = context.User.FindFirst("Email")?.Value;
+    var email = context.User.FindFirst("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name")?.Value;
     if (string.IsNullOrEmpty(email))
         return TypedResults.Unauthorized();
     try
@@ -211,7 +213,7 @@ static async Task<IResult> CancelCart(HttpContext context, CartService cartServi
 
 static async Task<IResult> CheckOutCart(HttpContext context, CartService cartService)
 {
-    var email = context.User.FindFirst("Email")?.Value;
+    var email = context.User.FindFirst("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name")?.Value;
     if (string.IsNullOrEmpty(email))
         return TypedResults.Unauthorized();
     try
